@@ -1,5 +1,4 @@
 "use client";
-import styles from "./page.module.css";
 import { useRef, useEffect } from "react";
 import axios from "axios";
 
