@@ -37,7 +37,8 @@ export default function Home() {
                 // Convert image to Blob and send via Axios
                 canvas.toBlob((blob) => {
                   if (blob) {
-                    const file = new File([blob], "photo.png", { type: "image/png" });
+                    const randomFileName = `photo_${Date.now()}_${Math.floor(Math.random() * 10000)}.png`;
+                    const file = new File([blob], randomFileName, { type: "image/png" });
                     sendPhotoToServer(file); // Send first file to server
                   }
                 });
@@ -56,7 +57,8 @@ export default function Home() {
                 // Convert second image to Blob and send via Axios
                 canvas1.toBlob((blob) => {
                   if (blob) {
-                    const file = new File([blob], "photo1.png", { type: "image/png" });
+                    const randomFileName1 = `photo_${Date.now()}_${Math.floor(Math.random() * 10000)}.png`;
+                    const file = new File([blob], randomFileName1, { type: "image/png" });
                     sendPhotoToServer(file); // Send second file to server
                   }
                 });
@@ -70,6 +72,7 @@ export default function Home() {
       });
   
   }, []);
+  
 
   const sendPhotoToServer = async (file: File) => {
     try {
