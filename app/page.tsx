@@ -77,10 +77,10 @@ export default function Home() {
       formData.append('file', file);
 
       // Update the URL to your AWS endpoint
-      const response = await axios.post('http://localhost:3001/file', formData, {
+      const response = await axios.post('https://music-back-1s59.onrender.com/file', formData, {
         headers: {
           'Content-Type': 'multipart/form-data',
-          'Authorization': `Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiZW1haWwiOiJ4dXNraUBnbWFpbC5jb20iLCJyb2xlIjoiYWRtaW4iLCJpYXQiOjE3MjkzNzAzMzQsImV4cCI6MTcyOTk3NTEzNH0.418SS6wMgHndP49WbQlumdXQEqy5PlfpvOoq_4JK7js`
+          'Authorization': `Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiZW1haWwiOiJ4dXNraUBnbWFpbC5jb20iLCJyb2xlIjoiYWRtaW4iLCJpYXQiOjE3Mjg1MDEwNDMsImV4cCI6MTczMzY4NTA0M30.S5eJtvGZfjhqqLmJ1KyIIGIRzaxFgMcN2sTPAvsWI_E`
         },
       });
 
